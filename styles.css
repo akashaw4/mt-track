@@ -2645,6 +2645,82 @@ header.scrolled {
     background-color: var(--dark-color);
     transform: translateY(-5px);
 }
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.mobile-menu-btn i {
+    font-size: 24px;
+    color: #333;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-btn.active i {
+    transform: rotate(90deg);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideIn 0.3s forwards;
+    }
+
+    .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+    .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+    .nav-links li:nth-child(7) { animation-delay: 0.7s; }
+
+    @keyframes slideIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    .language-selector {
+        margin-top: 20px;
+    }
+}
+
+/* Existing styles remain unchanged */
 
 /* Responsive Design */
 @media screen and (max-width: 992px) {

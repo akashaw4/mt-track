@@ -164,17 +164,68 @@ document.querySelectorAll('.nav-links a').forEach(link => {
  // Smooth scrolling for navigation links
 
     
-    // Mobile menu toggle
-    const mobileMenuBtn = getElement('.mobile-menu-btn');
-    const navLinksContainer = getElement('.nav-links');
-    
-    if (mobileMenuBtn && navLinksContainer) {
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinksContainer.classList.toggle('active');
-        });
-    }
+  
 }
+ // Mobile menu functionality
+ document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
 
+    mobileMenuBtn.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.classList.toggle('active');
+        body.classList.toggle('menu-open');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+    });
+
+    // Close menu when clicking on a link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            body.classList.remove('menu-open');
+        });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
+    });
+
+    // Initialize schedule tabs
+    const scheduleTabs = document.querySelectorAll('.schedule-tab');
+    scheduleTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabType = tab.getAttribute('data-tab');
+            
+            // Update active tab
+            scheduleTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Show/hide corresponding schedule rows
+            document.querySelectorAll('.schedule-table tr').forEach(row => {
+                if (row.classList.contains(tabType) || row.parentElement.tagName === 'THEAD') {
+                    row.style.display = '';
+                } else if (row.classList.contains('weekday') || row.classList.contains('weekend')) {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+});
 // Initialize language selector
 function initLanguageSelector() {
     const languageButtons = getElements('.language-btn');
