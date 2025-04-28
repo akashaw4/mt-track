@@ -1,0 +1,13 @@
+{
+  "name": "kmt-tracker",
+  "version": "1.0.0",
+  "description": "KMT Bus Tracking System",
+  "main": "simple_server.js",
+  "scripts": {
+    "start": "node simple_server.js",
+    "dev": "node simple_server.js"
+  },
+  "dependencies": {
+    "http": "^0.0.1-security"
+  }
+}
